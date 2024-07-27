@@ -45,10 +45,13 @@ install_docker_compose() {
 
   echo "Verifying Docker Compose installation..."
   docker-compose --version
-# If you want to run docker as non-root user then you need to add it to the docker group
-  sudo usermod -aG docker $USER
-  newgrp docker
+}
 
+# Add user to docker group and refresh group membership
+add_user_to_docker_group() {
+  sudo usermod -aG docker $USER
+  # Refresh group membership without needing to log out and log back in
+  exec sudo su -l $USER
 }
 
 # Check if Docker is installed, if not, install it
@@ -71,9 +74,17 @@ else
   docker-compose --version
 fi
 
+# Add user to docker group if not already a member
+if ! groups $USER | grep &>/dev/null "\bdocker\b"
+then
+  echo "Adding user to the Docker group..."
+  add_user_to_docker_group
+fi
+
 echo "Docker and Docker Compose installation script completed."
 
 # Create config.yml and acme.json
+mkdir -p data
 touch data/config.yml data/acme.json
 chmod 600 data/acme.json
 
@@ -88,7 +99,7 @@ echo "TRAEFIK_DASHBOARD_CREDENTIALS=${hashed_password}" > .env
 docker network create proxy
 
 # Run Traefik
-docker-compose up -d
+sudo docker-compose up -d
 
 # Initialize configuration in config.yml
 cp data/config.sample.yml data/config.yml
