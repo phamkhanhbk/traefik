@@ -82,10 +82,8 @@ chmod data/600 acme.json
 sudo apt install apache2-utils -y
 echo "Enter information for login:"
 read -p "Username: " user
-str1="TRAEFIK_DASHBOARD_CREDENTIALS="
-str2="$(htpasswd -nB $user)"
-combined_str="$str1$str2"
-echo $combined_str > .env
+hashed_password=$(htpasswd -nB "$user" | sed -e 's/\$/\$\$/g')
+echo "TRAEFIK_DASHBOARD_CREDENTIALS=${hashed_password}" > .env
 
 # Create network for Traefik
 docker network create proxy
