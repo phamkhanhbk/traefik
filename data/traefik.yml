@@ -22,7 +22,7 @@ providers:
 certificatesResolvers:
   http:
     acme:
-      email: admin@mitalab.com
+      email: admin@sample.com
       storage: acme.json
       httpChallenge:
         entryPoint: http
