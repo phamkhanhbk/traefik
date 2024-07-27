@@ -74,9 +74,8 @@ fi
 echo "Docker and Docker Compose installation script completed."
 
 # Create config.yml and acme.json
-touch data/config.yml
-touch data/acme.json
-chmod data/600 acme.json
+touch data/config.yml data/acme.json
+chmod 600 data/acme.json
 
 # Information login
 sudo apt install apache2-utils -y
