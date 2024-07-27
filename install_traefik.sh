@@ -19,4 +19,3 @@ docker-compose up -d
 
 # Initialize configuration
 cp data/config.sample.yml data/config.yml
-cd ..
