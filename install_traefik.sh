@@ -82,6 +82,7 @@ chmod 600 data/acme.json
 # Information login
 sudo apt install apache2-utils -y
 echo "Enter information for login:"
+sleep 3
 read -p "Username: " user
 hashed_password=$(htpasswd -nB "$user" | sed -e 's/\$/\$\$/g')
 echo "TRAEFIK_DASHBOARD_CREDENTIALS=${hashed_password}" > .env
@@ -91,7 +92,6 @@ docker network create proxy
 
 # Run Traefik
 docker-compose up -d
-sleep 10
 
 # Initialize configuration in config.yml
 cp data/config.sample.yml data/config.yml
