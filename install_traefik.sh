@@ -72,8 +72,6 @@ else
 fi
 
 echo "Docker and Docker Compose installation script completed."
-# Sleep 10s
-sleep 10
 
 # Create config.yml and acme.json
 touch data/config.yml data/acme.json
@@ -82,7 +80,6 @@ chmod 600 data/acme.json
 # Information login
 sudo apt install apache2-utils -y
 echo "Enter information for login:"
-sleep 3
 read -p "Username: " user
 hashed_password=$(htpasswd -nB "$user" | sed -e 's/\$/\$\$/g')
 echo "TRAEFIK_DASHBOARD_CREDENTIALS=${hashed_password}" > .env
