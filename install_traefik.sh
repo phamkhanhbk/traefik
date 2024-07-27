@@ -91,9 +91,8 @@ docker network create proxy
 
 # Run Traefik
 docker-compose up -d
-
-#Sleep 10s
 sleep 10
 
-# Config routers in config.yml
+# Initialize configuration in config.yml
 cp data/config.sample.yml data/config.yml
+cd ..
