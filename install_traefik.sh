@@ -72,6 +72,8 @@ else
 fi
 
 echo "Docker and Docker Compose installation script completed."
+# Sleep 10s
+sleep 10
 
 # Create config.yml and acme.json
 touch data/config.yml data/acme.json
@@ -89,3 +91,9 @@ docker network create proxy
 
 # Run Traefik
 docker-compose up -d
+
+#Sleep 10s
+sleep 10
+
+# Config routers in config.yml
+cp data/config.sample.yml data/config.yml
