@@ -46,8 +46,7 @@ install_docker_compose() {
   echo "Verifying Docker Compose installation..."
   docker-compose --version
 # If you want to run docker as non-root user then you need to add it to the docker group
-  sudo usermod -aG docker $USER
-  newgrp docker
+  sudo usermod -aG docker $USER && newgrp docker
 
 }
 
