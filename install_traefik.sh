@@ -4,8 +4,12 @@
 touch data/config.yml data/acme.json
 chmod 600 data/acme.json
 
-# Information login
+# Information organization
 sudo apt install apache2-utils -y
+read -p "Enter hostname: " hostname
+read -p "Enter email address: " email
+sed -i "s/traefik.sample.com/${hostname}/g" docker-compose.yaml
+sed -i "s/admin@sample.com/${email}/g" data/traefik.yml
 echo "Enter information for login:"
 read -p "Username: " user
 hashed_password=$(htpasswd -nB "$user" | sed -e 's/\$/\$\$/g')
