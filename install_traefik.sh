@@ -4,11 +4,11 @@
 touch data/config.yml data/acme.json
 chmod 600 data/acme.json
 
-# Information organization
+# Information Organization
 sudo apt install apache2-utils -y
+echo "Enter Information Organization:"
 read -p "Enter hostname: " hostname
 read -p "Enter email address: " email
-echo "Enter information for login:"
 read -p "Username: " user
 sed -i "s/traefik.sample.com/${hostname}/g" docker-compose.yaml
 sed -i "s/admin@sample.com/${email}/g" data/traefik.yml
