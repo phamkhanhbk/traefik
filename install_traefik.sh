@@ -8,10 +8,10 @@ chmod 600 data/acme.json
 sudo apt install apache2-utils -y
 read -p "Enter hostname: " hostname
 read -p "Enter email address: " email
-sed -i "s/traefik.sample.com/${hostname}/g" docker-compose.yaml
-sed -i "s/admin@sample.com/${email}/g" data/traefik.yml
 echo "Enter information for login:"
 read -p "Username: " user
+sed -i "s/traefik.sample.com/${hostname}/g" docker-compose.yaml
+sed -i "s/admin@sample.com/${email}/g" data/traefik.yml
 hashed_password=$(htpasswd -nB "$user" | sed -e 's/\$/\$\$/g')
 echo "TRAEFIK_DASHBOARD_CREDENTIALS=${hashed_password}" > .env
 
