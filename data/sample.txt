@@ -1,0 +1,28 @@
+http:
+ #region routers 
+  routers:
+    sample:
+      entryPoints:
+        - "https"
+      rule: "Host(`sample.com`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls:
+        certResolver: http
+      service: sample
+# Add routers here  
+#endregion
+#region services
+  services:
+      sample:
+      loadBalancer:
+        servers:
+          - url: "http://backend"
+        passHostHeader: true
+# Add services here
+
+
+
+
+
