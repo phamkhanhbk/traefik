@@ -53,3 +53,4 @@ while true; do
 done
 
 echo "Configuration update stopped."
+docker restart traefik
