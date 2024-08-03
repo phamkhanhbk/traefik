@@ -22,7 +22,7 @@ append_to_config() {
 while true; do
   read -p "Enter Router Name: " router
   read -p "Enter Host name: " hostname
-  read -p 'Enter "IP address:Port": ' ipaddr
+  read -p "Enter Ip address and Port (separated by colons):" ipaddr
 
   router_str="    $router:
       entryPoints:
