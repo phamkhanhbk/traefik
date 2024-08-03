@@ -5,7 +5,7 @@ append_to_config() {
   local router_str="$1"
   local service_str="$2"
 
-  # Escape newlines for sed
+  # Converts multi-line strings for compatibility with sed commands
   local escaped_router_str
   escaped_router_str=$(echo "$router_str" | sed ':a;N;$!ba;s/\n/\\n/g')
   local escaped_service_str
