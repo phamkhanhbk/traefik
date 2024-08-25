@@ -18,13 +18,19 @@ append_to_config() {
 }
 
 # Main
-
 while true; do
   read -p "Enter Router Name: " router
   read -p "Enter Host name: " hostname
-  read -p "Enter Ip address and Port (separated by colons):" ipaddr
 
-  router_str="    $router:
+  # Check if hostname already exists in config.yml
+  if grep -q "Host(\`${hostname}\`)" data/config.yml; then
+    echo "Hostname '${hostname}' already exists in the configuration. Skipping..."
+    # Jump to asking if the user wants to add another configuration
+    goto_continue=true
+  else
+    read -p "Enter Ip address and Port (separated by colons):" ipaddr
+
+    router_str="    $router:
       entryPoints:
         - \"https\"
       rule: \"Host(\`${hostname}\`)\"
@@ -36,17 +42,22 @@ while true; do
       service: $router
 # Add routers here"
 
-  service_str="    $router:
+    service_str="    $router:
       loadBalancer:
         servers:
           - url: \"http://${ipaddr}\"
         passHostHeader: true
 # Add services here"
 
-  # Append configuration to the file
-  append_to_config "$router_str" "$service_str"
+    # Append configuration to the file
+    append_to_config "$router_str" "$service_str"
+  fi
 
   # Ask if the user wants to add another configuration
+  if [ "$goto_continue" = true ]; then
+    unset goto_continue
+  fi
+
   read -p "Do you want to add another configuration? (yes/Yes/y/Y/YES to continue): " answer
   if ! [[ "$answer" =~ ^([yY][eE][sS]|[yY])$ ]]; then
     break
