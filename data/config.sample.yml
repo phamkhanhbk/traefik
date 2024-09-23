@@ -4,6 +4,7 @@ http:
 # Add routers here
 #endregion
 #region services
+  services:
 # Add services here
 #endregion
   middlewares:
