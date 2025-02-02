@@ -19,7 +19,7 @@ echo "TRAEFIK_DASHBOARD_CREDENTIALS=${hashed_password}" > .env
 docker network create proxy
 
 # Run Traefik
-docker-compose up -d
+docker compose up -d
 
 # Initialize configuration
 cp data/config.sample.yml data/config.yml
