@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Create config.yml and acme.json
-mkdir data
 touch data/config.yml data/acme.json
 chmod 600 data/acme.json
 
